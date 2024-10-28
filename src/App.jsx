@@ -22,7 +22,7 @@ const App = () => {
 
     const PrivateRoute = ({ children, role }) => {
         if (!isLoggedIn) {
-            return <Navigate to="/" />;  // Redirect to root URL instead of "/login"
+            return <Navigate to="/" />;  
         }
 
         if (role && userRole !== role) {
@@ -36,9 +36,8 @@ const App = () => {
         <Router>
             <Routes>
                 <Route path="/" element={<LoginPageComponent onLogin={handleLogin} />} />
-                <Route path="/logout" element={<LogoutComponent />} />  {/* Ensure Logout redirects to root on completion */}
+                <Route path="/logout" element={<LogoutComponent />} /> 
                 
-                {/* Admin Routes */}
                 <Route
                     path="/admin/*"
                     element={
@@ -55,7 +54,6 @@ const App = () => {
                 <Route path="/admin/inventory" element={<PrivateRoute role="admin"><TrackInventoryComponent /></PrivateRoute>} />
                 <Route path="/admin/report" element={<PrivateRoute role="admin"><GenerateReportsComponent /></PrivateRoute>} />
 
-                {/* Employee Routes */}
                 <Route
                     path="/employee/*"
                     element={

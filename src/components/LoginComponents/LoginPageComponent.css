@@ -62,8 +62,7 @@ body, html {
 }
 
 label {
-    color: white; /* Ensure label text is white */
-}
+    color: white; }
 
 input[type="email"],
 input[type="password"],
@@ -72,7 +71,7 @@ select {
     padding: 10px;
     border: none;
     border-radius: 4px;
-    background-color: rgba(255, 255, 255, 0.2); /* Set a transparent background */
+    background-color: rgba(255, 255, 255, 0.2); 
     color: white;
 }
 

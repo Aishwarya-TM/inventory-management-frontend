@@ -42,7 +42,7 @@ const GetAllProductsComponent = () => {
                 (typeof product.upc === 'number' && product.upc.toString().includes(searchTerm.trim()));
             const nameMatch = typeof product.name === 'string' && product.name.toLowerCase().includes(searchTerm.toLowerCase());
             const categoryMatch = typeof product.category === 'string' && product.category.toLowerCase().includes(searchTerm.toLowerCase());
-            const idMatch = product._id.includes(searchTerm); // Search by Product ID
+            const idMatch = product._id.includes(searchTerm); 
             return upcMatch || nameMatch || categoryMatch || idMatch;
         }) : products;
 
@@ -114,7 +114,7 @@ const GetAllProductsComponent = () => {
                 <table className="products-table">
                     <thead>
                         <tr>
-                            <th>Product ID</th> {/* Added Product ID Column */}
+                            <th>Product ID</th> 
                             <th>Name</th>
                             <th>UPC</th>
                             <th>Category</th>

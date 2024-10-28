@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import GetAllEmployeeComponent from './GetAllEmployeeComponent';
-import AddEmployeeComponent from './AddEmployeeComponent'; // Adjust the import path
+import AddEmployeeComponent from './AddEmployeeComponent'; 
 
 const MainComponent = () => {
     const [showAddEmployee, setShowAddEmployee] = useState(false);
