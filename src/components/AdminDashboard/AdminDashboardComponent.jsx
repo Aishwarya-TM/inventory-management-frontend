@@ -2,15 +2,18 @@ import React, { useState } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import { FaUserCircle, FaSignOutAlt } from 'react-icons/fa';
 import './AdminDashboardComponent.css';
+import LogoutComponent from '../LogoutComponents/LogoutComponent';
 
 const AdminDashboardComponent = () => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showLogoutForm, setShowLogoutForm] = useState(false);
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
 
-  const closeDropdown = () => {
+  const toggleLogoutForm = () => {
+    setShowLogoutForm(!showLogoutForm);
     setShowDropdown(false);
   };
 
@@ -27,10 +30,10 @@ const AdminDashboardComponent = () => {
               <FaUserCircle />
             </div>
             {showDropdown && (
-              <div className="admin-dropdown-menu" onMouseLeave={closeDropdown}>
-                <Link to="/logout" className="admin-dropdown-link">
+              <div className="admin-dropdown-menu" onMouseLeave={() => setShowDropdown(false)}>
+                <button className="admin-dropdown-link" onClick={toggleLogoutForm}>
                   <FaSignOutAlt /> Logout
-                </Link>
+                </button>
               </div>
             )}
           </li>
@@ -77,6 +80,8 @@ const AdminDashboardComponent = () => {
         </div>
         <Outlet />
       </main>
+
+      {showLogoutForm && <LogoutComponent onClose={() => setShowLogoutForm(false)} />}
     </div>
   );
 };

@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import { FaUserCircle, FaSignOutAlt } from 'react-icons/fa';
 import './EmployeeDashboardComponent.css';
+import LogoutComponent from '../LogoutComponents/LogoutComponent';
 
 const EmployeeDashboardComponent = () => {
     const [showDropdown, setShowDropdown] = useState(false);
+    const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
 
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
@@ -12,6 +14,11 @@ const EmployeeDashboardComponent = () => {
 
     const closeDropdown = () => {
         setShowDropdown(false);
+    };
+
+    const handleLogoutClick = () => {
+        setShowLogoutConfirmation(true);
+        closeDropdown();
     };
 
     return (
@@ -27,10 +34,10 @@ const EmployeeDashboardComponent = () => {
                             <FaUserCircle />
                         </div>
                         {showDropdown && (
-                            <div className="admin-dropdown-menu" onMouseLeave={closeDropdown}>
-                                <Link to="/logout" className="admin-dropdown-link">
+                            <div className="employee-dropdown-menu" onMouseLeave={closeDropdown}>
+                                <button onClick={handleLogoutClick} className="employee-dropdown-link">
                                     <FaSignOutAlt /> Logout
-                                </Link>
+                                </button>
                             </div>
                         )}
                     </li>
@@ -65,6 +72,9 @@ const EmployeeDashboardComponent = () => {
                 </div>
                 <Outlet />
             </main>
+            {showLogoutConfirmation && (
+                <LogoutComponent onClose={() => setShowLogoutConfirmation(false)} />
+            )}
         </div>
     );
 };

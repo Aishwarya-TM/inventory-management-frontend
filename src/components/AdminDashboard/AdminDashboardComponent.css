@@ -153,3 +153,6 @@
 #report-card {
     background-image: url('../../assets/reports.png');
 }
+.admin-dropdown-link{
+    background-color: black;
+}

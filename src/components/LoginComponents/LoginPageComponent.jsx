@@ -50,6 +50,7 @@ const LoginPageComponent = ({ onLogin }) => {
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        placeholder='eg:jack.john@gmail.com'
                         required
                     />
                 </div>
@@ -59,6 +60,7 @@ const LoginPageComponent = ({ onLogin }) => {
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        placeholder='eg:password123'
                         required
                     />
                 </div>
