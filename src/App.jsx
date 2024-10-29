@@ -9,6 +9,7 @@ import TrackInventoryComponent from './components/ProductComponents/TrackInvento
 import GenerateReportsComponent from './components/ProductComponents/GenerateReportsComponent';
 import LoginPageComponent from './components/LoginComponents/LoginPageComponent';
 import EmployeeDashboardComponent from './components/EmployeeDashboardComponents/EmployeeDashboardComponent';
+import LogoutComponent from './components/LogoutComponents/LogoutComponent';
 
 const App = () => {
     const [userRole, setUserRole] = useState(null);
@@ -35,7 +36,8 @@ const App = () => {
         <Router>
             <Routes>
                 <Route path="/" element={<LoginPageComponent onLogin={handleLogin} />} />
-
+                <Route path="/logout" element={<LogoutComponent />} /> 
+                
                 <Route
                     path="/admin/*"
                     element={
@@ -70,6 +72,6 @@ const App = () => {
             </Routes>
         </Router>
     );
-};
+}
 
 export default App;
