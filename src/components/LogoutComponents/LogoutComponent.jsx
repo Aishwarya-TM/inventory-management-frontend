@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import './LogoutComponent.css';
 
-const LogoutComponent = ({ onClose }) => {
+const LogoutComponent = ({ onLogout = () => {} }) => {  
     const navigate = useNavigate();
     const [showConfirmation, setShowConfirmation] = useState(true);
 
@@ -11,7 +11,8 @@ const LogoutComponent = ({ onClose }) => {
         try {
             await axios.get('/logout', { withCredentials: true });
             document.cookie = 'token=; Max-Age=0; path=/;';
-            navigate('/');  
+            onLogout();  
+            navigate('/'); 
         } catch (error) {
             console.error('Error during logout:', error);
         }
@@ -23,7 +24,6 @@ const LogoutComponent = ({ onClose }) => {
 
     const handleNo = () => {
         setShowConfirmation(false);
-        onClose(); // Close the form
     };
 
     return (

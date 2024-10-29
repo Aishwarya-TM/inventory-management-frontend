@@ -20,6 +20,11 @@ const App = () => {
         setIsLoggedIn(true);
     };
 
+    const handleLogout = () => {
+        setUserRole(null);
+        setIsLoggedIn(false);
+    };
+
     const PrivateRoute = ({ children, role }) => {
         if (!isLoggedIn) {
             return <Navigate to="/" />;  
@@ -36,7 +41,7 @@ const App = () => {
         <Router>
             <Routes>
                 <Route path="/" element={<LoginPageComponent onLogin={handleLogin} />} />
-                <Route path="/logout" element={<LogoutComponent />} /> 
+                <Route path="/logout" element={<LogoutComponent onLogout={handleLogout} />} /> 
                 
                 <Route
                     path="/admin/*"
@@ -72,6 +77,6 @@ const App = () => {
             </Routes>
         </Router>
     );
-}
+};
 
 export default App;
