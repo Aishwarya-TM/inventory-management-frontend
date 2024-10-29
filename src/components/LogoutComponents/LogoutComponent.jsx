@@ -9,7 +9,7 @@ const LogoutComponent = ({ onClose }) => {
 
     const handleLogout = async () => {
         try {
-            await axios.get('/logout', { withCredentials: true });
+            await axios.get('https://inventory-management-backend-kappa.vercel.app/api/v1/auth/logout', { withCredentials: true });
             document.cookie = 'token=; Max-Age=0; path=/;';
             navigate('/');  
         } catch (error) {
