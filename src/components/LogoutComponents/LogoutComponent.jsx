@@ -1,5 +1,5 @@
 import React from 'react';
-import './logoutcomponent.css';
+import './Logoutcomponent.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -8,7 +8,6 @@ const LogoutComponent = ({ onClose }) => {
 
   const handleLogout = async () => {
     try {
-      // Get the token from localStorage (or wherever you store it)
       const token = localStorage.getItem('authToken');
 
       if (!token) {
@@ -17,19 +16,16 @@ const LogoutComponent = ({ onClose }) => {
         return;
       }
 
-      // Add token to headers
       await axios.get('https://inventory-management-backend-kappa.vercel.app/api/v1/auth/logout', {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
 
-      // Clear token and navigate to login
       localStorage.removeItem('authToken');
       navigate('/login');
     } catch (error) {
       console.error("Error logging out:", error);
-      // Handle error (e.g., display message, retry, etc.)
     }
   };
 
