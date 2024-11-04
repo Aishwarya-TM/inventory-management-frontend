@@ -6,6 +6,7 @@ import AddProductComponent from './AddProductComponent';
 import UpdateProductComponent from './UpdateProductComponent';
 import DeleteProductComponent from './DeleteProductComponent';
 import RestockProductComponent from './RestockProductComponent';
+import ProductFilterComponent from './ProductFilterComponent';
 
 const GetAllProductsComponent = () => {
     const [products, setProducts] = useState([]);
@@ -17,6 +18,7 @@ const GetAllProductsComponent = () => {
     const [isDeleteProductVisible, setIsDeleteProductVisible] = useState(false);
     const [productToDelete, setProductToDelete] = useState(null);
     const [isRestockVisible, setIsRestockVisible] = useState(false);
+    const [isFilterVisible, setIsFilterVisible] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredProducts, setFilteredProducts] = useState([]);
 
@@ -36,21 +38,8 @@ const GetAllProductsComponent = () => {
         }
     };
 
-    useEffect(() => {
-        const results = searchTerm ? products.filter(product => {
-            const upcMatch = (typeof product.upc === 'string' && product.upc.trim().includes(searchTerm.trim())) ||
-                (typeof product.upc === 'number' && product.upc.toString().includes(searchTerm.trim()));
-            const nameMatch = typeof product.name === 'string' && product.name.toLowerCase().includes(searchTerm.toLowerCase());
-            const categoryMatch = typeof product.category === 'string' && product.category.toLowerCase().includes(searchTerm.toLowerCase());
-            const idMatch = product._id.includes(searchTerm); 
-            return upcMatch || nameMatch || categoryMatch || idMatch;
-        }) : products;
-
-        setFilteredProducts(results);
-    }, [searchTerm, products]);
-
-    const toggleAddProduct = () => {
-        setIsAddProductVisible(!isAddProductVisible);
+    const handleFilterToggle = () => {
+        setIsFilterVisible(!isFilterVisible);
     };
 
     const handleEditProduct = (product) => {
@@ -61,10 +50,6 @@ const GetAllProductsComponent = () => {
     const handleDeleteProduct = (product) => {
         setProductToDelete(product.upc);
         setIsDeleteProductVisible(true);
-    };
-
-    const toggleRestock = () => {
-        setIsRestockVisible(!isRestockVisible);
     };
 
     const closeUpdateProduct = () => {
@@ -90,7 +75,7 @@ const GetAllProductsComponent = () => {
         <div className="get-all-products-container">
             <h2>Products List</h2>
             <div className="actions">
-                <div className="add-product" onClick={toggleAddProduct}>
+                <div className="add-product" onClick={() => setIsAddProductVisible(true)}>
                     <FaPlus className="add-icon" title="Add Product" />
                     <span>Add Product</span>
                 </div>
@@ -103,7 +88,8 @@ const GetAllProductsComponent = () => {
                         onChange={handleSearchChange}
                     />
                 </div>
-                <button className="restock-button" onClick={toggleRestock}>Restock</button>
+                <button className="restock-button" onClick={() => setIsRestockVisible(true)}>Restock Quantity</button>
+                <button className="filter-button" onClick={handleFilterToggle}>Filter Products</button>
             </div>
 
             {loading ? (
@@ -114,7 +100,7 @@ const GetAllProductsComponent = () => {
                 <table className="products-table">
                     <thead>
                         <tr>
-                            <th>Product ID</th> 
+                            <th>Product ID</th>
                             <th>Name</th>
                             <th>UPC</th>
                             <th>Category</th>
@@ -128,7 +114,7 @@ const GetAllProductsComponent = () => {
                     <tbody>
                         {filteredProducts.map((product, index) => (
                             <tr key={`${product._id}-${index}`} className="product-item">
-                                <td>{product._id}</td> 
+                                <td>{product._id}</td>
                                 <td>{product.name}</td>
                                 <td>{product.upc}</td>
                                 <td>{product.category}</td>
@@ -137,17 +123,8 @@ const GetAllProductsComponent = () => {
                                 <td>{product.weight} kg</td>
                                 <td>{product.sold}</td>
                                 <td>
-                                    <FaEdit
-                                        className="action-icon"
-                                        title="Edit"
-                                        onClick={() => handleEditProduct(product)}
-                                    />
-                                    <FaTrash
-                                        className="action-icon"
-                                        title="Delete"
-                                        style={{ marginLeft: '10px' }}
-                                        onClick={() => handleDeleteProduct(product)}
-                                    />
+                                    <FaEdit className="action-icon" title="Edit" onClick={() => handleEditProduct(product)} />
+                                    <FaTrash className="action-icon" title="Delete" style={{ marginLeft: '10px' }} onClick={() => handleDeleteProduct(product)} />
                                 </td>
                             </tr>
                         ))}
@@ -157,10 +134,7 @@ const GetAllProductsComponent = () => {
 
             {isAddProductVisible && (
                 <div className="overlay">
-                    <AddProductComponent
-                        onProductAdded={fetchProducts}
-                        onClose={toggleAddProduct}
-                    />
+                    <AddProductComponent onProductAdded={fetchProducts} onClose={() => setIsAddProductVisible(false)} />
                 </div>
             )}
 
@@ -172,20 +146,21 @@ const GetAllProductsComponent = () => {
 
             {isDeleteProductVisible && productToDelete && (
                 <div className="overlay">
-                    <DeleteProductComponent
-                        upc={productToDelete}
-                        onClose={closeDeleteProduct}
-                        onDeleteSuccess={handleDeleteSuccess}
-                    />
+                    <DeleteProductComponent upc={productToDelete} onClose={closeDeleteProduct} onDeleteSuccess={handleDeleteSuccess} />
                 </div>
             )}
 
             {isRestockVisible && (
                 <div className="overlay">
-                    <RestockProductComponent onClose={toggleRestock} />
+                    <RestockProductComponent onClose={() => setIsRestockVisible(false)} />
                 </div>
             )}
 
+            {isFilterVisible && (
+                <div className="overlay">
+                    <ProductFilterComponent onClose={handleFilterToggle} />
+                </div>
+            )}
         </div>
     );
 };

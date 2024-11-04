@@ -3,7 +3,6 @@ import { Outlet, Link } from 'react-router-dom';
 import { FaUserCircle, FaSignOutAlt } from 'react-icons/fa';
 import './EmployeeDashboardComponent.css';
 import LogoutComponent from '../LogoutComponents/LogoutComponent';
-
 const EmployeeDashboardComponent = () => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
@@ -69,6 +68,7 @@ const EmployeeDashboardComponent = () => {
                             <h3 className="employee-card-title">Generate Report</h3>
                         </div>
                     </Link>
+                    
                 </div>
                 <Outlet />
             </main>

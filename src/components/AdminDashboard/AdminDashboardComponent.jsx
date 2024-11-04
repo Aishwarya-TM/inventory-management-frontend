@@ -8,10 +8,7 @@ const AdminDashboardComponent = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLogoutForm, setShowLogoutForm] = useState(false);
 
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
-  };
-
+  const toggleDropdown = () => setShowDropdown(!showDropdown);
   const toggleLogoutForm = () => {
     setShowLogoutForm(!showLogoutForm);
     setShowDropdown(false);
@@ -47,40 +44,35 @@ const AdminDashboardComponent = () => {
               <h3 className="admin-card-title">Products</h3>
             </div>
           </Link>
-
           <Link to="/admin/suppliers" className="admin-card admin-suppliers" id="suppliers-card">
             <div className="admin-card-content">
               <h3 className="admin-card-title">Suppliers</h3>
             </div>
           </Link>
-          
           <Link to="/admin/employees" className="admin-card admin-employees" id="employees-card">
             <div className="admin-card-content">
               <h3 className="admin-card-title">Employees</h3>
             </div>
           </Link>
-          
           <Link to="/admin/orders" className="admin-card admin-orders" id="orders-card">
             <div className="admin-card-content">
               <h3 className="admin-card-title">Orders</h3>
             </div>
           </Link>
-          
           <Link to="/admin/inventory" className="admin-card admin-inventory-level" id="inventory-card">
             <div className="admin-card-content">
               <h3 className="admin-card-title">Track Inventory Level</h3>
             </div>
           </Link>
-
           <Link to="/admin/report" className="admin-card admin-generate-report" id="report-card">
             <div className="admin-card-content">
               <h3 className="admin-card-title">Generate Report</h3>
             </div>
           </Link>
+          
         </div>
         <Outlet />
       </main>
-
       {showLogoutForm && <LogoutComponent onClose={() => setShowLogoutForm(false)} />}
     </div>
   );
